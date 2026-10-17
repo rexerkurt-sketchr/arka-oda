@@ -55,6 +55,33 @@ const ARKA = {
   ]
 };
 
+ARKA.lessons = {
+  "mt-islem": { move: "Parantez biter, sonra çarpma ve bölme soldan sağa gider. Toplama en sona kalır.", video: "https://www.youtube.com/watch?v=nTEVxJLPeKE", label: "Rehber Matematik · kampın başı" },
+  "mt-kesir": { move: "Paydalar aynıysa payları topla. Değilse ortak payda bul. Kesir alırken önce paydaya böl, sonra payla çarp.", video: "https://www.youtube.com/watch?v=nTEVxJLPeKE&t=4234s", label: "Rasyonel sayılar · 1:10:34" },
+  "mt-yuzde": { move: "Yüzdeyi düz lira sanma. Sayının yüzde kaçı, sayı çarpı yüzde bölü 100'dür.", video: "https://www.youtube.com/watch?v=nTEVxJLPeKE&t=17909s", label: "Yüzde problemleri · 4:58:29" },
+  "mt-oran": { move: "Bir taraf kaç katına çıktıysa öteki de o kadar katına çıkar. Karışımda payları topla.", video: "https://www.youtube.com/watch?v=nTEVxJLPeKE&t=14805s", label: "Oran orantı · 4:06:45", also: "https://www.youtube.com/watch?v=cr8sB53UATg", alsoLabel: "2026 çıkmış orantı sorusu" },
+  "mt-denklem": { move: "Cümleyi önce denkleme çevir. x'in yanındaki sayı karşıya geçerken işlem tersine döner.", video: "https://www.youtube.com/watch?v=nTEVxJLPeKE&t=9250s", label: "Birinci derece denklem · 2:34:10" },
+  "mt-us": { move: "Üs, sayının kaç kez çarpılacağıdır. Aynı taban çarpılınca üsler toplanır. 5⁰ = 1.", video: "https://www.youtube.com/watch?v=nTEVxJLPeKE&t=12263s", label: "Üslü sayılar · 3:24:23" },
+  "mt-problem": { move: "İstenene x de. 3 katının 2 fazlası, 3x + 2 demektir. Yaş farkı, küçük olanın yaşı değildir.", video: "https://www.youtube.com/watch?v=nTEVxJLPeKE&t=16366s", label: "Kesir ve yaş problemi · 4:32:46" },
+  "mt-veri": { move: "Ortalama: topla, adede böl. Açıklık: en büyük eksi en küçük. Tepe değer en çok tekrar edendir.", video: "https://www.youtube.com/watch?v=nTEVxJLPeKE&t=26388s", label: "Veri ve istatistik · 7:19:48" },
+  "mt-kume": { move: "Kesişim yalnız ortaklar. Birleşimde ortak bir kez sayılır. En az birini seven: A + B − ortak.", video: "https://www.youtube.com/watch?v=nTEVxJLPeKE&t=20180s", label: "Kümeler · 5:36:20" },
+  "mt-olasilik": { move: "Olasılık, istenen bölü tümüdür. İki renk var diye sonuç 1/2 çıkmaz; sayıya bak.", video: "https://www.youtube.com/watch?v=nTEVxJLPeKE&t=28642s", label: "Olasılık · 7:57:22" },
+  "mt-dogru": { move: "Düz açı 180'dir, bütünler onu tamamlar. Tümler açı 90'ı tamamlar. Ters açılar eşittir.", video: "https://www.youtube.com/watch?v=b5F_INSojHw", label: "Doğruda açı · videonun başı" },
+  "mt-aci": { move: "Üçgenin iç açıları 180 eder. İkisi verilmişse üçüncü, 180'den farktır.", video: "https://www.youtube.com/watch?v=b5F_INSojHw&t=119s", label: "Üçgenin iç açıları · 1:59" },
+  "mt-pisagor": { move: "Dik açının karşısı hipotenüstür. Kısa kenarların karelerini topla. 3-4-5 ile 6-8-10 aynı üçgendir.", video: "https://www.youtube.com/playlist?list=PLVoSZ0D0CB3ovGqsyyKyl129FIZEXQm60", label: "49 günde TYT geometri · dik üçgen günleri" },
+  "mt-ucgenalan": { move: "Taban çarpı yükseklik, sonra ikiye böl. Yükseklik tabana dik iner.", video: "https://www.youtube.com/playlist?list=PLVoSZ0D0CB3ovGqsyyKyl129FIZEXQm60", label: "49 günde TYT geometri kampı" },
+  "mt-alan": { move: "Alan içi doldurur: en çarpı boy. Çevre kenarları toplar. Kenar çarpı 4, karenin çevresidir.", video: "https://www.youtube.com/playlist?list=PLVoSZ0D0CB3ovGqsyyKyl129FIZEXQm60", label: "49 günde TYT geometri kampı" },
+  "mt-dortgen": { move: "Dörtgenin iç açıları 360 eder. Paralelkenarda alan, taban çarpı yüksekliktir.", video: "https://www.youtube.com/playlist?list=PLVoSZ0D0CB3ovGqsyyKyl129FIZEXQm60", label: "49 günde TYT geometri kampı" },
+  "mt-cember": { move: "Çap, yarıçapın iki katıdır. Çevre 2πr, alan πr². Bu kapıda π = 3.", video: "https://www.youtube.com/playlist?list=PLVoSZ0D0CB3ovGqsyyKyl129FIZEXQm60", label: "49 günde TYT geometri kampı" }
+};
+
+ARKA.papers = [
+  { year: "2026", note: "Son TYT. Kitapçık ve cevap anahtarı bu sayfada.", url: "https://www.osym.gov.tr/TR,34130/2026-yks-tyt-ayt-ve-ydt-temel-soru-kitapciklari-ve-cevap-anahtarlari.html" },
+  { year: "2025", note: "Bir önceki yılın kitapçığı.", url: "https://www.osym.gov.tr/2025yks-tyt-ayt-ve-ydt-temel-soru-kitapciklari-ve-cevap-anahtarlari" },
+  { year: "2024", note: "2024 kitapçığı.", url: "https://www.osym.gov.tr/2024yks-tyt-ayt-ve-ydt-temel-soru-kitapciklari-ve-cevap-anahtarlari" },
+  { year: "2018–2023", note: "ÖSYM arşivi. Yılı aç, TYT kitapçığını indir.", url: "https://www.osym.gov.tr/SinavGrubu/Menu/323" }
+];
+
 function q(id, topic, prompt, choices, a, why) {
   ARKA.questions.push({ id, topic, q: prompt, choices, a, why });
 }

@@ -1,4 +1,4 @@
-const CACHE = "arka-oda-v2";
+const CACHE = "arka-oda-v3";
 const FILES = [
   "./",
   "./index.html",

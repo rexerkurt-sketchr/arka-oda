@@ -261,6 +261,18 @@ function nextOpenTopic(subject) {
   return topics.find((topic) => topicStat(topic.id).introduced < topicStat(topic.id).total) || topics[0];
 }
 
+function lessonOf(topicId) {
+  return ARKA.lessons[topicId] || null;
+}
+
+function lessonLinks(lesson) {
+  if (!lesson) return "";
+  const extra = lesson.also
+    ? `<br><a href="${lesson.also}" target="_blank" rel="noopener">${esc(lesson.alsoLabel)}</a>`
+    : "";
+  return `<p><a href="${lesson.video}" target="_blank" rel="noopener">${esc(lesson.label)}</a>${extra}</p>`;
+}
+
 function standalone() {
   return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone;
 }
@@ -268,7 +280,7 @@ function standalone() {
 function render() {
   const app = document.getElementById("app");
   const nav = document.getElementById("nav");
-  const showNav = ["home", "path", "progress", "goal", "ways"].includes(ui.screen);
+  const showNav = ["home", "path", "progress", "goal", "ways", "papers"].includes(ui.screen);
   nav.hidden = !showNav;
   if (showNav) {
     nav.innerHTML = [
@@ -278,7 +290,7 @@ function render() {
       ["goal", "Hedef"]
     ].map(([id, label]) => `<button data-act="go" data-screen="${id}" class="${ui.screen === id ? "on" : ""}">${label}</button>`).join("");
   }
-  const screens = { coach: renderCoach, home: renderHome, session: renderSession, result: renderResult, path: renderPath, progress: renderProgress, goal: renderGoal, ways: renderWays };
+  const screens = { coach: renderCoach, home: renderHome, session: renderSession, result: renderResult, path: renderPath, progress: renderProgress, goal: renderGoal, ways: renderWays, papers: renderPapers };
   app.innerHTML = (screens[ui.screen] || renderHome)();
 }
 
@@ -317,6 +329,8 @@ function renderHome() {
       <div><div class="bar-label"><span>Geometri · ${esc(geo.title)}</span><span>${subjectRate("geometri")}%</span></div><div class="track"><div class="fill geo" style="width:${subjectRate("geometri")}%"></div></div></div>
     </div>
     <p class="note">${due ? `${due} kartın vakti gelmiş, tur onları öne alır.` : "Bugün bekleyen tekrar yok. Tur yeni kart açar."} ${streak ? `Üst üste ${streak} gün.` : "İlk tur hazır."}</p>
+    ${renderIdil(math, geo)}
+    <button class="ghost" data-act="go" data-screen="papers">Çıkmış kitapçıklar</button>
     <button class="ghost" data-act="go" data-screen="ways">Sıkılınca ne olur</button>
     ${install}
     <p class="meta" style="margin-top:18px">İlerleme bu tarayıcıda durur. Defter'den yedek al.</p>`;
@@ -349,7 +363,12 @@ function renderSession() {
   let feedback = "";
   if (pending) {
     const topic = topicById(item.topic);
+    const lesson = lessonOf(item.topic);
+    const idil = lesson
+      ? `<div class="why"><strong>İdil:</strong> ${esc(lesson.move)}${lessonLinks(lesson)}</div>`
+      : "";
     feedback = `<div class="why ${pending.ok ? "" : "bad"}">${esc(item.why)}</div>
+      ${idil}
       <details ${pending.ok ? "" : "open"}><summary>Konunun kısa hali</summary><div class="teach">${esc(topic.teach)}</div></details>
       ${pending.ok
         ? `<div class="split"><button class="ghost" data-act="grade" data-quality="3">Emin değildim</button><button class="primary" data-act="grade" data-quality="auto">Devam</button></div>`
@@ -431,6 +450,30 @@ function renderGoal() {
     <p class="note" style="margin-top:14px">Buradaki sorular ÖSYM kitapçığı değildir. 2026 kitapçıkları teliflidir, resmi sayfadan açılır. Hugging Face ve GitHub'daki büyük YKS dosyaları da ya yayınevi sorusu ya da e-postayla açılan araştırma verisidir. TurkishMMLU'nun Türkçe bölümü paragraf değil, edebiyat bilgisidir ve çözüm açıklaması yoktur. O yüzden Türkçe burada yazıldı. Matematik kalıptan üretilir; kart dönünce sayılar değişir.</p>
     <p class="note"><a href="https://www.osym.gov.tr/TR,34130/2026-yks-tyt-ayt-ve-ydt-temel-soru-kitapciklari-ve-cevap-anahtarlari.html" target="_blank" rel="noopener">2026 ÖSYM kitapçıkları</a><br>
     <a href="https://yokatlas.yok.gov.tr/lisans.php?y=104810044" target="_blank" rel="noopener">YÖK Atlas program sayfası</a></p>`;
+}
+
+function renderIdil(math, geo) {
+  const row = (topic) => {
+    const lesson = lessonOf(topic.id);
+    return `<div class="idil-row"><strong>${topic.subject === "geometri" ? "Geometri" : "Matematik"}: ${esc(topic.title)}</strong><p>${esc(lesson.move)}</p>${lessonLinks(lesson)}<button class="ghost" data-act="focus" data-topic="${topic.id}">Bu kapıyı çöz</button></div>`;
+  };
+  return `<div class="card idil"><p class="kicker">İdil ile</p>${row(math)}${row(geo)}</div>`;
+}
+
+function renderPapers() {
+  const years = ARKA.papers.map((paper) => `<a class="ghost" href="${paper.url}" target="_blank" rel="noopener"><strong>${esc(paper.year)} TYT</strong><span>${esc(paper.note)}</span></a>`).join("");
+  const watches = [
+    ["2026 çıkmış orantı sorusu", "Çözüm videosu, sorunun kendisi videoda.", "https://www.youtube.com/watch?v=cr8sB53UATg"],
+    ["TYT matematik kampı", "Rehber Matematik. Bölümler kesir, yüzde, üslü sayı, küme diye ayrılmış.", "https://www.youtube.com/watch?v=nTEVxJLPeKE"],
+    ["TYT geometri kampı", "Rehber Matematik, 49 gün. Doğru, üçgen, dik üçgen, dörtgen, çember.", "https://www.youtube.com/playlist?list=PLVoSZ0D0CB3ovGqsyyKyl129FIZEXQm60"]
+  ].map(([title, note, url]) => `<a class="ghost" href="${url}" target="_blank" rel="noopener"><strong>${esc(title)}</strong><span>${esc(note)}</span></a>`).join("");
+  return `<p class="kicker">Çıkmış</p>
+    <h2>Kitapçık ÖSYM'de, çözüm videoda.</h2>
+    <p class="sub">Soru metnini buraya koymuyorum. İdil aynı konunun nasıl çözüleceğini odada söylüyor. Aşağıdaki sayfalar resmi kitapçık, videolar da o türün anlatıldığı yer.</p>
+    <div class="sec">Kitapçıklar</div>
+    <div class="stack">${years}</div>
+    <div class="sec">Çözüm</div>
+    <div class="stack">${watches}</div>`;
 }
 
 function renderWays() {

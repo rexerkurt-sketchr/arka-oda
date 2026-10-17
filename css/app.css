@@ -106,6 +106,10 @@ h2 { font-size: 28px; line-height: 1.1; margin: 0 0 8px; }
   padding: 14px 14px 12px;
 }
 .card p { margin: 6px 0 0; color: var(--muted); line-height: 1.45; }
+.card.idil { border-color: #3c524c; }
+.idil-row + .idil-row { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
+.idil-row strong { color: var(--ink); }
+.card a, .why a, .note a { color: var(--math); }
 .bars { display: grid; gap: 10px; margin: 16px 0; }
 .bar-label { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-bottom: 5px; }
 .track { height: 8px; background: #322b24; border-radius: 99px; overflow: hidden; }
@@ -164,8 +168,10 @@ summary { cursor: pointer; color: var(--amber-2); }
 .teach { white-space: pre-wrap; line-height: 1.45; margin-top: 8px; }
 
 .path-item { width: 100%; text-align: left; }
-.path-item strong { display: block; }
-.path-item span { color: var(--faint); font-size: 13px; }
+.path-item strong, a.ghost strong { display: block; }
+.path-item span, a.ghost span { color: var(--faint); font-size: 13px; }
+a.ghost { display: block; text-decoration: none; color: inherit; }
+.stack a.ghost { margin-top: 0; }
 .sec { margin: 18px 0 8px; color: var(--faint); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
 .note {
   font-size: 14px;
